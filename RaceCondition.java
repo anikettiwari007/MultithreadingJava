@@ -56,3 +56,27 @@ class RaceCondition2{
 		}		
 	}
 }
+
+/*
+ * the two sum variables are independent of each other, you could split their
+ * summing up into two separate synchronized blocks.
+ * 
+ * two different threads can execute the two blocks independently. 
+ * This way threads will have to wait less for each other to execute the add() method.
+ */
+class TwoSum{
+	protected long val1=0;
+	protected long val2=0;
+	
+	private Long lockForVal1 = Long.valueOf(1);
+	private Long lockForVal2 = Long.valueOf(2);
+	
+	public void add(long value) {
+		synchronized (lockForVal1) {
+			this.val1 = this.val1+value;
+		}
+		synchronized (lockForVal2) {
+			this.val2 = this.val2+value;
+		}
+	}
+}
